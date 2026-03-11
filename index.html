@@ -7,7 +7,8 @@
 
 <style>
 :root{
-  --compensacionY: 0.50; /* prueba 0.46 / 0.50 / 0.54 */
+  --compensacionY: 0.50;   /* prueba 0.46 / 0.50 / 0.54 */
+  --ajusteX: 18px;         /* mueve todo a la derecha */
 }
 
 html, body{
@@ -24,18 +25,16 @@ body{
   position:relative;
 }
 
-/* ESCENA CENTRADA */
 #escena{
   position:absolute;
-  left:52%;
+  left:50%;
   top:50%;
   width:256px;
   height:256px;
-  transform:translate(-50%, -50%);
+  transform:translate(-50%, -50%) translateX(var(--ajusteX));
   transform-origin:center center;
 }
 
-/* CONTADOR */
 #contador{
   position:absolute;
   inset:0;
@@ -47,13 +46,11 @@ body{
   transition:opacity 0.5s ease;
 }
 
-/* COMPENSACIÓN VERTICAL */
 .compY{
   transform:scaleY(var(--compensacionY));
   transform-origin:center center;
 }
 
-/* DÍAS */
 #dias{
   font-size:120px;
   font-weight:bold;
@@ -61,7 +58,6 @@ body{
   margin:0;
 }
 
-/* TEXTO DÍAS */
 #textoDias{
   font-size:30px;
   letter-spacing:3px;
@@ -69,7 +65,6 @@ body{
   margin-bottom:8px;
 }
 
-/* RELOJ */
 #tiempo{
   font-size:48px;
   font-weight:bold;
@@ -77,7 +72,6 @@ body{
   white-space:nowrap;
 }
 
-/* LOGO */
 #logo{
   position:absolute;
   inset:0;
@@ -118,7 +112,6 @@ body.final #logo{
 <body>
 
 <div id="escena">
-
   <div id="contador">
     <div id="dias" class="compY"></div>
     <div id="textoDias" class="compY"></div>
@@ -130,11 +123,10 @@ body.final #logo{
       <img src="logo.png" alt="Logo Cliente">
     </div>
   </div>
-
 </div>
 
 <script>
-const fechaObjetivo = new Date("2026-03-11T18:43:00").getTime();
+const fechaObjetivo = new Date("2026-03-11T16:56:00").getTime();
 
 function actualizarContador(){
   const ahora = Date.now();
@@ -165,4 +157,3 @@ setInterval(actualizarContador, 1000);
 
 </body>
 </html>
-
