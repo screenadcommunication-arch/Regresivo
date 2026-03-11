@@ -7,7 +7,7 @@
 
 <style>
 :root{
-  --compensacionY: 0.50; /* PRUEBA 0.46 / 0.50 / 0.54 */
+  --compensacionY: 0.50; /* prueba 0.46 / 0.50 / 0.54 */
 }
 
 html, body{
@@ -24,6 +24,18 @@ body{
   position:relative;
 }
 
+/* ESCENA CENTRADA */
+#escena{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:256px;
+  height:256px;
+  transform:translate(-50%, -50%);
+  transform-origin:center center;
+}
+
+/* CONTADOR */
 #contador{
   position:absolute;
   inset:0;
@@ -35,13 +47,13 @@ body{
   transition:opacity 0.5s ease;
 }
 
-/* APLASTAR EN VERTICAL PARA COMPENSAR LA TB2/PANTALLA */
+/* COMPENSACIÓN VERTICAL */
 .compY{
-  transform: scaleY(var(--compensacionY));
-  transform-origin: center center;
+  transform:scaleY(var(--compensacionY));
+  transform-origin:center center;
 }
 
-/* NUMERO DIAS */
+/* DÍAS */
 #dias{
   font-size:120px;
   font-weight:bold;
@@ -49,7 +61,7 @@ body{
   margin:0;
 }
 
-/* TEXTO DIAS */
+/* TEXTO DÍAS */
 #textoDias{
   font-size:30px;
   letter-spacing:3px;
@@ -105,20 +117,24 @@ body.final #logo{
 
 <body>
 
-<div id="contador">
-  <div id="dias" class="compY"></div>
-  <div id="textoDias" class="compY"></div>
-  <div id="tiempo" class="compY"></div>
-</div>
+<div id="escena">
 
-<div id="logo">
-  <div id="logoWrap" class="compY">
-    <img src="logo.png" alt="Logo Cliente">
+  <div id="contador">
+    <div id="dias" class="compY"></div>
+    <div id="textoDias" class="compY"></div>
+    <div id="tiempo" class="compY"></div>
   </div>
+
+  <div id="logo">
+    <div id="logoWrap" class="compY">
+      <img src="logo.png" alt="Logo Cliente">
+    </div>
+  </div>
+
 </div>
 
 <script>
-const fechaObjetivo = new Date("2026-03-11T18:33:00").getTime();
+const fechaObjetivo = new Date("2026-03-11T18:40:00").getTime();
 
 function actualizarContador(){
   const ahora = Date.now();
@@ -149,4 +165,3 @@ setInterval(actualizarContador, 1000);
 
 </body>
 </html>
-
