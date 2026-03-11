@@ -6,9 +6,12 @@
 <title>Cuenta atrás evento</title>
 
 <style>
+
 :root{
-  --compensacionY: 0.50;   /* prueba 0.46 / 0.50 / 0.54 */
-  --ajusteX: 10px;         /* mueve todo a la derecha */
+  --compensacionY: 0.50;
+
+  --ajusteXContador: 20px; /* mover contador */
+  --ajusteXLogo: 0px;      /* mover logo */
 }
 
 html, body{
@@ -25,15 +28,18 @@ body{
   position:relative;
 }
 
+/* ESCENA CENTRADA */
+
 #escena{
   position:absolute;
   left:50%;
   top:50%;
   width:256px;
   height:256px;
-  transform:translate(-50%, -50%) translateX(var(--ajusteX));
-  transform-origin:center center;
+  transform:translate(-50%, -50%);
 }
+
+/* CONTADOR */
 
 #contador{
   position:absolute;
@@ -44,19 +50,26 @@ body{
   justify-content:center;
   text-align:center;
   transition:opacity 0.5s ease;
+
+  transform:translateX(var(--ajusteXContador));
 }
+
+/* COMPENSACIÓN VERTICAL */
 
 .compY{
   transform:scaleY(var(--compensacionY));
   transform-origin:center center;
 }
 
+/* NUMERO DIAS */
+
 #dias{
   font-size:120px;
   font-weight:bold;
   line-height:0.9;
-  margin:0;
 }
+
+/* TEXTO DIAS */
 
 #textoDias{
   font-size:30px;
@@ -65,12 +78,16 @@ body{
   margin-bottom:8px;
 }
 
+/* RELOJ */
+
 #tiempo{
   font-size:48px;
   font-weight:bold;
   letter-spacing:3px;
   white-space:nowrap;
 }
+
+/* LOGO */
 
 #logo{
   position:absolute;
@@ -80,6 +97,8 @@ body{
   align-items:center;
   opacity:0;
   transition:opacity 0.8s ease;
+
+  transform:translateX(var(--ajusteXLogo));
 }
 
 #logoWrap{
@@ -96,8 +115,9 @@ body{
   width:auto;
   height:auto;
   object-fit:contain;
-  display:block;
 }
+
+/* ESTADO FINAL */
 
 body.final #contador{
   opacity:0;
@@ -106,12 +126,14 @@ body.final #contador{
 body.final #logo{
   opacity:1;
 }
+
 </style>
 </head>
 
 <body>
 
 <div id="escena">
+
   <div id="contador">
     <div id="dias" class="compY"></div>
     <div id="textoDias" class="compY"></div>
@@ -120,15 +142,18 @@ body.final #logo{
 
   <div id="logo">
     <div id="logoWrap" class="compY">
-      <img src="logo.png" alt="Logo Cliente">
+      <img src="logo.png">
     </div>
   </div>
+
 </div>
 
 <script>
-const fechaObjetivo = new Date("2026-03-11T19:26:00").getTime();
+
+const fechaObjetivo = new Date("2026-03-11T16:56:00").getTime();
 
 function actualizarContador(){
+
   const ahora = Date.now();
   const diferencia = fechaObjetivo - ahora;
 
@@ -138,13 +163,16 @@ function actualizarContador(){
   }
 
   const dias = -Math.floor(diferencia / (1000 * 60 * 60 * 24));
+
   const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
   const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
 
   document.getElementById("dias").textContent = dias;
+
   document.getElementById("textoDias").textContent =
     Math.abs(dias) === 1 ? "DÍA" : "DÍAS";
+
   document.getElementById("tiempo").textContent =
     String(horas).padStart(2,'0') + ":" +
     String(minutos).padStart(2,'0') + ":" +
@@ -153,6 +181,7 @@ function actualizarContador(){
 
 actualizarContador();
 setInterval(actualizarContador, 1000);
+
 </script>
 
 </body>
