@@ -6,136 +6,145 @@
 <title>Cuenta atrás evento</title>
 
 <style>
+:root{
+  --compensacionY: 0.50; /* PRUEBA 0.46 / 0.50 / 0.54 */
+}
 
 html, body{
-margin:0;
-width:256px;
-height:256px;
-background:black;
-overflow:hidden;
-font-family:Arial, sans-serif;
-color:white;
+  margin:0;
+  width:256px;
+  height:256px;
+  background:black;
+  overflow:hidden;
+  font-family:Arial, sans-serif;
+  color:white;
+}
+
+body{
+  position:relative;
 }
 
 #contador{
-position:absolute;
-width:256px;
-height:256px;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-text-align:center;
-transition:opacity 0.5s;
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  transition:opacity 0.5s ease;
+}
+
+/* APLASTAR EN VERTICAL PARA COMPENSAR LA TB2/PANTALLA */
+.compY{
+  transform: scaleY(var(--compensacionY));
+  transform-origin: center center;
 }
 
 /* NUMERO DIAS */
-
 #dias{
-font-size:120px;
-font-weight:bold;
-line-height:0.9;
+  font-size:120px;
+  font-weight:bold;
+  line-height:0.9;
+  margin:0;
 }
 
 /* TEXTO DIAS */
-
 #textoDias{
-font-size:28px;
-letter-spacing:3px;
-margin-top:2px;
-margin-bottom:10px;
+  font-size:30px;
+  letter-spacing:3px;
+  margin-top:-8px;
+  margin-bottom:8px;
 }
 
 /* RELOJ */
-
 #tiempo{
-font-size:48px;
-font-weight:bold;
-letter-spacing:3px;
+  font-size:48px;
+  font-weight:bold;
+  letter-spacing:3px;
+  white-space:nowrap;
 }
 
 /* LOGO */
-
 #logo{
-position:absolute;
-width:256px;
-height:256px;
-display:flex;
-justify-content:center;
-align-items:center;
-opacity:0;
-transform:scale(0.8);
-transition:opacity 0.8s, transform 0.8s;
+  position:absolute;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  opacity:0;
+  transition:opacity 0.8s ease;
+}
+
+#logoWrap{
+  width:210px;
+  height:210px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
 #logo img{
-max-width:200px;
-max-height:200px;
-width:auto;
-height:auto;
+  max-width:100%;
+  max-height:100%;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  display:block;
 }
 
 body.final #contador{
-opacity:0;
+  opacity:0;
 }
 
 body.final #logo{
-opacity:1;
-transform:scale(1);
+  opacity:1;
 }
-
 </style>
 </head>
 
 <body>
 
 <div id="contador">
-
-<div id="dias"></div>
-<div id="textoDias"></div>
-<div id="tiempo"></div>
-
+  <div id="dias" class="compY"></div>
+  <div id="textoDias" class="compY"></div>
+  <div id="tiempo" class="compY"></div>
 </div>
 
 <div id="logo">
-<img src="logo.png">
+  <div id="logoWrap" class="compY">
+    <img src="logo.png" alt="Logo Cliente">
+  </div>
 </div>
 
 <script>
-
-const fechaObjetivo = new Date("2026-03-11T16:56:00");
+const fechaObjetivo = new Date("2026-03-11T16:56:00").getTime();
 
 function actualizarContador(){
+  const ahora = Date.now();
+  const diferencia = fechaObjetivo - ahora;
 
-const ahora = new Date().getTime();
-const diferencia = fechaObjetivo - ahora;
+  if(diferencia <= 0){
+    document.body.classList.add("final");
+    return;
+  }
 
-if(diferencia <= 0){
-document.body.classList.add("final");
-return;
+  const dias = -Math.floor(diferencia / (1000 * 60 * 60 * 24));
+  const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+  const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+  document.getElementById("dias").textContent = dias;
+  document.getElementById("textoDias").textContent =
+    Math.abs(dias) === 1 ? "DÍA" : "DÍAS";
+  document.getElementById("tiempo").textContent =
+    String(horas).padStart(2,'0') + ":" +
+    String(minutos).padStart(2,'0') + ":" +
+    String(segundos).padStart(2,'0');
 }
 
-const dias = -Math.floor(diferencia/(1000*60*60*24));
-
-const horas = Math.floor((diferencia%(1000*60*60*24))/(1000*60*60));
-const minutos = Math.floor((diferencia%(1000*60*60))/(1000*60));
-const segundos = Math.floor((diferencia%(1000*60))/1000);
-
-document.getElementById("dias").innerHTML = dias;
-
-document.getElementById("textoDias").innerHTML =
-Math.abs(dias) === 1 ? "DÍA" : "DÍAS";
-
-document.getElementById("tiempo").innerHTML =
-horas.toString().padStart(2,'0') + ":" +
-minutos.toString().padStart(2,'0') + ":" +
-segundos.toString().padStart(2,'0');
-
-}
-
-setInterval(actualizarContador,1000);
 actualizarContador();
-
+setInterval(actualizarContador, 1000);
 </script>
 
 </body>
