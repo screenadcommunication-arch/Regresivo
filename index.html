@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cuenta atrás evento</title>
+
+<style>
+
+body{
+margin:0;
+background:black;
+overflow:hidden;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:Arial, sans-serif;
+color:white;
+}
+
+#contador{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:4vh;
+transition:opacity 0.6s ease;
+text-align:center;
+}
+
+/* NUMERO DE DIAS */
+#dias{
+font-size:28vh;
+font-weight:bold;
+line-height:0.9;
+}
+
+/* TEXTO DIAS */
+#textoDias{
+font-size:8vh;
+letter-spacing:1vh;
+}
+
+/* RELOJ */
+#tiempo{
+font-size:12vh;
+font-weight:bold;
+letter-spacing:1vh;
+}
+
+/* LOGO */
+
+#logo{
+position:absolute;
+opacity:0;
+transform:scale(0);
+transition:transform 1.2s ease-out, opacity 0.6s ease;
+}
+
+#logo img{
+width:70vh;
+}
+
+/* ESTADO FINAL */
+
+body.final #contador{
+opacity:0;
+}
+
+body.final #logo{
+opacity:1;
+transform:scale(1);
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="contador">
+
+<div id="dias"></div>
+<div id="textoDias"></div>
+
+<div id="tiempo"></div>
+
+</div>
+
+<div id="logo">
+<img src="logo.png">
+</div>
+
+<script>
+
+const fechaObjetivo = new Date("2026-03-11T16:58:00");
+
+function actualizarContador(){
+
+const ahora = new Date().getTime();
+const diferencia = fechaObjetivo - ahora;
+
+/* EVENTO LLEGÓ */
+if(diferencia <= 0){
+document.body.classList.add("final");
+return;
+}
+
+/* DIAS EN NEGATIVO HASTA EL EVENTO */
+const dias = -Math.floor(diferencia/(1000*60*60*24));
+
+const horas = Math.floor((diferencia%(1000*60*60*24))/(1000*60*60));
+const minutos = Math.floor((diferencia%(1000*60*60))/(1000*60));
+const segundos = Math.floor((diferencia%(1000*60))/1000);
+
+/* MOSTRAR DIAS */
+document.getElementById("dias").innerHTML = dias;
+
+/* TEXTO DIA / DIAS */
+document.getElementById("textoDias").innerHTML =
+Math.abs(dias) === 1 ? "DÍA" : "DÍAS";
+
+/* RELOJ */
+document.getElementById("tiempo").innerHTML =
+horas.toString().padStart(2,'0') + ":" +
+minutos.toString().padStart(2,'0') + ":" +
+segundos.toString().padStart(2,'0');
+
+}
+
+setInterval(actualizarContador,1000);
+actualizarContador();
+
+</script>
+
+</body>
+</html>
