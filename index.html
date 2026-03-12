@@ -9,9 +9,8 @@
 
 :root{
   --compensacionY: 0.50;
-
-  --ajusteXContador: 20px; /* mover contador */
-  --ajusteXLogo: 0px;      /* mover logo */
+  --ajusteXContador: 20px;
+  --ajusteXLogo: 0px;
 }
 
 html, body{
@@ -28,8 +27,7 @@ body{
   position:relative;
 }
 
-/* ESCENA CENTRADA */
-
+/* ESCENA */
 #escena{
   position:absolute;
   left:50%;
@@ -40,7 +38,6 @@ body{
 }
 
 /* CONTADOR */
-
 #contador{
   position:absolute;
   inset:0;
@@ -50,45 +47,40 @@ body{
   justify-content:center;
   text-align:center;
   transition:opacity 0.5s ease;
-
-  transform:translateX(var(--ajusteXContador));
+  transform:translateX(var(--ajusteXContador)) translateY(-10px);
 }
 
-/* COMPENSACIÓN VERTICAL */
-
+/* COMPENSACIÓN PANTALLA TRANSPARENTE */
 .compY{
   transform:scaleY(var(--compensacionY));
   transform-origin:center center;
 }
 
-/* NUMERO DIAS */
-
+/* NÚMERO DE DÍAS */
 #dias{
-  font-size:120px;
+  font-size:110px;
   font-weight:bold;
   line-height:0.9;
+  margin:0;
 }
 
-/* TEXTO DIAS */
-
+/* TEXTO DÍAS */
 #textoDias{
-  font-size:30px;
+  font-size:38px;
   letter-spacing:3px;
-  margin-top:-8px;
-  margin-bottom:8px;
+  margin-top:-18px;
+  margin-bottom:-2px;
 }
 
 /* RELOJ */
-
 #tiempo{
-  font-size:48px;
+  font-size:46px;
   font-weight:bold;
-  letter-spacing:3px;
+  letter-spacing:2px;
   white-space:nowrap;
 }
 
 /* LOGO */
-
 #logo{
   position:absolute;
   inset:0;
@@ -97,7 +89,6 @@ body{
   align-items:center;
   opacity:0;
   transition:opacity 0.8s ease;
-
   transform:translateX(var(--ajusteXLogo));
 }
 
@@ -118,7 +109,6 @@ body{
 }
 
 /* ESTADO FINAL */
-
 body.final #contador{
   opacity:0;
 }
@@ -142,7 +132,7 @@ body.final #logo{
 
   <div id="logo">
     <div id="logoWrap" class="compY">
-      <img src="logo.png">
+      <img src="logo.png" alt="Logo Cliente">
     </div>
   </div>
 
@@ -150,10 +140,9 @@ body.final #logo{
 
 <script>
 
-const fechaObjetivo = new Date("2026-03-12T14:22:00").getTime();
+const fechaObjetivo = new Date("2026-03-12T15:30:00").getTime();
 
 function actualizarContador(){
-
   const ahora = Date.now();
   const diferencia = fechaObjetivo - ahora;
 
@@ -163,16 +152,13 @@ function actualizarContador(){
   }
 
   const dias = -Math.floor(diferencia / (1000 * 60 * 60 * 24));
-
   const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
   const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
 
   document.getElementById("dias").textContent = dias;
-
   document.getElementById("textoDias").textContent =
     Math.abs(dias) === 1 ? "DÍA" : "DÍAS";
-
   document.getElementById("tiempo").textContent =
     String(horas).padStart(2,'0') + ":" +
     String(minutos).padStart(2,'0') + ":" +
@@ -186,7 +172,6 @@ setInterval(actualizarContador, 1000);
 
 </body>
 </html>
-
 
 
 
