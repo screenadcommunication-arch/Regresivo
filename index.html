@@ -1,247 +1,224 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=256, height=256, initial-scale=1">
-<title>Countdown</title>
+<title>Countdown Cupra</title>
 
 <style>
+
 @font-face{
-  font-family:"Cupra";
-  src:url("Cupra-ExtraBold.woff") format("woff");
-  font-weight:normal;
-  font-style:normal;
+font-family:"Cupra";
+src:url("Cupra-ExtraBold.otf") format("opentype");
 }
 
 :root{
-  --rojo:#db0000;
-  --compensacionY:0.50; /* prueba 0.48 / 0.50 / 0.52 si quieres afinar */
+--rojo:#db0000;
 }
 
-html, body{
-  margin:0;
-  width:256px;
-  height:256px;
-  background:#000;
-  overflow:hidden;
+html,body{
+margin:0;
+background:black;
+font-family:"Cupra",Arial,sans-serif;
+color:var(--rojo);
+height:100%;
 }
 
+/* SOLO PARA VERLO GRANDE EN ORDENADOR */
 body{
-  position:relative;
-  font-family:"Cupra", Arial, sans-serif;
-  color:var(--rojo);
+zoom:3;
 }
 
-/* Compensación para pixel no cuadrado */
-.compY{
-  transform:scaleY(var(--compensacionY));
-  transform-origin:center center;
+/* CONTENEDOR PRINCIPAL */
+
+#contenedor{
+position:relative;
+width:256px;
+height:512px;
+margin:auto;
 }
 
-#stage{
-  position:relative;
-  width:256px;
-  height:256px;
-  background:#000;
-}
+/* LOGO SUPERIOR */
 
-/* CONTENIDO PRINCIPAL */
-#content{
-  position:absolute;
-  inset:0;
-  opacity:1;
-  transition:opacity 0.6s ease;
-}
-
-/* BLOQUE SUPERIOR IZQUIERDO */
-#daysBlock{
-  position:absolute;
-  left:18px;
-  top:18px;
-  width:92px;
-  text-align:left;
-}
-
-#daysNumber{
-  font-family:"Cupra", Arial, sans-serif;
-  font-size:84px;
-  line-height:0.82;
-  font-weight:normal;
-  letter-spacing:-2px;
-  margin:0;
-}
-
-#daysText{
-  font-family:"Cupra", Arial, sans-serif;
-  font-size:24px;
-  line-height:1;
-  font-weight:normal;
-  letter-spacing:2px;
-  margin-top:8px;
-  margin-left:2px;
-}
-
-/* LOGO R ARRIBA DERECHA */
 #logoTop{
-  position:absolute;
-  right:18px;
-  top:20px;
-  width:78px;
-  height:54px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+position:absolute;
+top:20px;
+right:20px;
+width:90px;
 }
 
 #logoTop img{
-  max-width:100%;
-  max-height:100%;
-  width:auto;
-  height:auto;
-  object-fit:contain;
-  display:block;
+width:100%;
 }
 
-/* BLOQUE CENTRAL RELOJ */
-#clockBlock{
-  position:absolute;
-  left:0;
-  top:106px;
-  width:256px;
-  text-align:center;
+/* BLOQUE DIAS */
+
+#bloqueDias{
+position:absolute;
+top:40px;
+left:30px;
 }
 
-#time{
-  font-family:"Cupra", Arial, sans-serif;
-  font-size:50px;
-  line-height:0.95;
-  font-weight:normal;
-  letter-spacing:2px;
-  margin:0;
+#diasNumero{
+font-size:110px;
+line-height:0.8;
+}
+
+#diasTexto{
+font-size:30px;
+letter-spacing:4px;
+margin-top:10px;
+}
+
+/* RELOJ */
+
+#reloj{
+position:absolute;
+top:250px;
+width:100%;
+text-align:center;
+}
+
+#tiempo{
+font-size:70px;
+letter-spacing:4px;
 }
 
 #labels{
-  margin-top:10px;
-  font-family:"Cupra", Arial, sans-serif;
-  font-size:12px;
-  line-height:1;
-  font-weight:normal;
-  letter-spacing:1px;
-  word-spacing:8px;
-  white-space:nowrap;
+margin-top:10px;
+font-size:18px;
+letter-spacing:3px;
+word-spacing:25px;
 }
 
-/* LOGO CUPRA ABAJO */
+/* LOGO INFERIOR */
+
 #logoBottom{
-  position:absolute;
-  left:0;
-  bottom:18px;
-  width:256px;
-  height:34px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+position:absolute;
+bottom:30px;
+width:100%;
+text-align:center;
 }
 
 #logoBottom img{
-  max-width:132px;
-  max-height:34px;
-  width:auto;
-  height:auto;
-  object-fit:contain;
-  display:block;
+width:140px;
 }
 
 /* ESTADO FINAL */
-#finalWrap{
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  opacity:0;
-  transition:opacity 0.6s ease;
+
+body.final #contenedor{
+display:none;
 }
 
-#finalWrap img{
-  max-width:170px;
-  max-height:110px;
-  width:auto;
-  height:auto;
-  object-fit:contain;
-  display:block;
+#logoFinal{
+display:none;
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
 }
 
-body.final #content{
-  opacity:0;
+#logoFinal img{
+width:180px;
 }
 
-body.final #finalWrap{
-  opacity:1;
+body.final #logoFinal{
+display:block;
 }
+
 </style>
 </head>
 
+
 <body>
-  <div id="stage">
 
-    <div id="content">
+<div id="contenedor">
 
-      <div id="daysBlock" class="compY">
-        <div id="daysNumber">0</div>
-        <div id="daysText">DAYS</div>
-      </div>
+<div id="logoTop">
+<img src="Logo_R.png">
+</div>
 
-      <div id="logoTop" class="compY">
-        <img src="Logo_R.png" alt="Logo R">
-      </div>
+<div id="bloqueDias">
+<div id="diasNumero">0</div>
+<div id="diasTexto">DAYS</div>
+</div>
 
-      <div id="clockBlock" class="compY">
-        <div id="time">00:00:00</div>
-        <div id="labels">HOURS MINUTES SECONDS</div>
-      </div>
+<div id="reloj">
 
-      <div id="logoBottom" class="compY">
-        <img src="Logo_Cupra.png" alt="Logo Cupra">
-      </div>
+<div id="tiempo">00:00:00</div>
 
-    </div>
+<div id="labels">
+HOURS&nbsp;&nbsp;&nbsp;&nbsp;MINUTES&nbsp;&nbsp;&nbsp;&nbsp;SECONDS
+</div>
 
-    <div id="finalWrap" class="compY">
-      <img src="Logo_Cupra.png" alt="Logo final">
-    </div>
+</div>
 
-  </div>
+<div id="logoBottom">
+<img src="Logo_Cupra.png">
+</div>
+
+</div>
+
+
+<div id="logoFinal">
+<img src="Logo_Cupra.png">
+</div>
+
+
 
 <script>
-const fechaObjetivo = new Date("2026-03-13T13:25:00").getTime();
 
-function pad(n){
-  return String(n).padStart(2, "0");
-}
+/* FECHA DEL EVENTO */
+
+const fechaObjetivo = new Date("2026-04-01T18:00:00").getTime();
+
 
 function actualizar(){
-  const ahora = Date.now();
-  const diff = fechaObjetivo - ahora;
 
-  if(diff <= 0){
-    document.body.classList.add("final");
-    return;
-  }
+const ahora = new Date().getTime();
 
-  const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const horas = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutos = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  const segundos = Math.floor((diff % (1000 * 60)) / 1000);
+const diferencia = fechaObjetivo - ahora;
 
-  document.getElementById("daysNumber").textContent = dias;
-  document.getElementById("time").textContent =
-    pad(horas) + ":" + pad(minutos) + ":" + pad(segundos);
+
+/* EVENTO TERMINADO */
+
+if(diferencia <= 0){
+
+document.body.classList.add("final");
+return;
+
 }
 
+
+const dias = Math.floor(diferencia/(1000*60*60*24));
+
+const horas = Math.floor((diferencia%(1000*60*60*24))/(1000*60*60));
+
+const minutos = Math.floor((diferencia%(1000*60*60))/(1000*60));
+
+const segundos = Math.floor((diferencia%(1000*60))/1000);
+
+
+/* ACTUALIZAR DIAS */
+
+document.getElementById("diasNumero").innerHTML = dias;
+
+
+/* RELOJ */
+
+document.getElementById("tiempo").innerHTML =
+horas.toString().padStart(2,'0') + ":" +
+minutos.toString().padStart(2,'0') + ":" +
+segundos.toString().padStart(2,'0');
+
+}
+
+setInterval(actualizar,1000);
+
 actualizar();
-setInterval(actualizar, 1000);
+
 </script>
+
 </body>
 </html>
 
