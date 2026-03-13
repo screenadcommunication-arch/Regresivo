@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 
 <meta charset="UTF-8">
@@ -19,8 +20,8 @@ src:url("Cupra-ExtraBold.woff") format("woff");
 html,body{
 margin:0;
 background:black;
-font-family:"Cupra",Arial,sans-serif;
 color:var(--rojo);
+font-family:"Cupra",Arial,sans-serif;
 height:100%;
 }
 
@@ -29,13 +30,14 @@ body{
 zoom:3;
 }
 
-/* CONTENEDOR */
+/* CONTENEDOR GENERAL */
 
 #contenedor{
 position:relative;
 width:256px;
 height:512px;
 margin:auto;
+background:black;
 }
 
 /* LOGO SUPERIOR */
@@ -44,11 +46,12 @@ margin:auto;
 position:absolute;
 top:20px;
 right:20px;
-width:90px;
+width:80px;
 }
 
 #logoTop img{
 width:100%;
+display:block;
 }
 
 /* BLOQUE DIAS */
@@ -76,37 +79,25 @@ margin-top:10px;
 position:absolute;
 top:250px;
 width:100%;
-text-align:center;
 }
 
 /* NUMEROS */
 
 #tiempo{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+justify-items:center;
 font-size:70px;
-display:flex;
-justify-content:center;
-gap:18px;
 }
 
-#tiempo span{
-display:inline-block;
-width:2.2ch;
-text-align:center;
-}
 /* LABELS */
 
 #labels{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+justify-items:center;
 margin-top:10px;
-font-size:18px;
-display:flex;
-justify-content:center;
-gap:18px;
-}
-
-#labels span{
-display:inline-block;
-width:2.2ch;
-text-align:center;
+font-size:16px;
 }
 
 /* LOGO INFERIOR */
@@ -119,7 +110,8 @@ text-align:center;
 }
 
 #logoBottom img{
-width:140px;
+width:130px;
+display:inline-block;
 }
 
 /* ESTADO FINAL */
@@ -145,12 +137,14 @@ display:block;
 }
 
 </style>
-</head>
 
+</head>
 
 <body>
 
+
 <div id="contenedor">
+
 
 <div id="logoTop">
 <img src="Logo_R.png">
@@ -158,11 +152,8 @@ display:block;
 
 
 <div id="bloqueDias">
-
 <div id="diasNumero">0</div>
-
 <div id="diasTexto">DAYS</div>
-
 </div>
 
 
@@ -170,18 +161,18 @@ display:block;
 
 <div id="tiempo">
 
-<span id="hh">00</span>
-<span id="mm">00</span>
-<span id="ss">00</span>
+<div id="hh">00</div>
+<div id="mm">00</div>
+<div id="ss">00</div>
 
 </div>
 
 
 <div id="labels">
 
-<span>HOURS</span>
-<span>MINUTES</span>
-<span>SECONDS</span>
+<div>HOURS</div>
+<div>MINUTES</div>
+<div>SECONDS</div>
 
 </div>
 
@@ -191,6 +182,7 @@ display:block;
 <div id="logoBottom">
 <img src="Logo_Cupra.png">
 </div>
+
 
 </div>
 
@@ -202,8 +194,6 @@ display:block;
 
 <script>
 
-/* FECHA DEL EVENTO */
-
 const fechaObjetivo = new Date("2026-04-01T18:00:00").getTime();
 
 
@@ -213,8 +203,6 @@ const ahora = new Date().getTime();
 
 const diferencia = fechaObjetivo - ahora;
 
-
-/* EVENTO TERMINADO */
 
 if(diferencia <= 0){
 
@@ -233,20 +221,15 @@ const minutos = Math.floor((diferencia%(1000*60*60))/(1000*60));
 const segundos = Math.floor((diferencia%(1000*60))/1000);
 
 
-/* DIAS */
+document.getElementById("diasNumero").textContent = dias;
 
-document.getElementById("diasNumero").innerHTML = dias;
-
-
-/* RELOJ */
-
-document.getElementById("hh").innerHTML =
+document.getElementById("hh").textContent =
 horas.toString().padStart(2,'0');
 
-document.getElementById("mm").innerHTML =
+document.getElementById("mm").textContent =
 minutos.toString().padStart(2,'0');
 
-document.getElementById("ss").innerHTML =
+document.getElementById("ss").textContent =
 segundos.toString().padStart(2,'0');
 
 }
@@ -256,6 +239,7 @@ setInterval(actualizar,1000);
 actualizar();
 
 </script>
+
 
 </body>
 </html>
