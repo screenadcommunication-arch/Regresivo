@@ -1,202 +1,253 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=256, height=512, initial-scale=1">
 <title>Countdown Cupra</title>
 
 <style>
+
 @font-face{
-  font-family:"Cupra";
-  src:url("Cupra-ExtraBold.woff") format("woff");
-  font-weight:normal;
-  font-style:normal;
+font-family:"Cupra";
+src:url("Cupra-ExtraBold.woff") format("woff");
 }
 
 :root{
-  --rojo:#db0000;
+--rojo:#db0000;
 }
 
 html,body{
-  margin:0;
-  background:black;
-  color:var(--rojo);
-  height:100%;
-  font-family:"Cupra", Arial, sans-serif;
+margin:0;
+background:black;
+font-family:"Cupra",Arial,sans-serif;
+color:var(--rojo);
+height:100%;
 }
 
-/* SOLO PARA VERLO GRANDE EN ORDENADOR */
+/* SOLO PARA PROBAR EN ORDENADOR */
 body{
-  zoom:3;
+zoom:3;
 }
 
-/* CONTENEDOR PRINCIPAL */
+/* CONTENEDOR */
+
 #contenedor{
-  position:relative;
-  width:256px;
-  height:512px;
-  margin:auto;
-  background:black;
+position:relative;
+width:256px;
+height:512px;
+margin:auto;
 }
 
 /* LOGO SUPERIOR */
+
 #logoTop{
-  position:absolute;
-  top:20px;
-  right:20px;
-  width:90px;
+position:absolute;
+top:20px;
+right:20px;
+width:90px;
 }
 
 #logoTop img{
-  width:100%;
-  height:auto;
-  display:block;
+width:100%;
 }
 
-/* BLOQUE DÍAS */
+/* BLOQUE DIAS */
+
 #bloqueDias{
-  position:absolute;
-  top:40px;
-  left:30px;
+position:absolute;
+top:40px;
+left:30px;
 }
 
 #diasNumero{
-  font-family:"Cupra", Arial, sans-serif;
-  font-size:110px;
-  line-height:0.8;
-  letter-spacing:0;
+font-size:110px;
+line-height:0.8;
 }
 
 #diasTexto{
-  font-family:"Cupra", Arial, sans-serif;
-  font-size:30px;
-  letter-spacing:4px;
-  margin-top:10px;
+font-size:30px;
+letter-spacing:4px;
+margin-top:10px;
 }
 
 /* RELOJ */
+
 #reloj{
-  position:absolute;
-  top:250px;
-  width:100%;
-  text-align:center;
+position:absolute;
+top:250px;
+width:100%;
+text-align:center;
 }
+
+/* NUMEROS */
 
 #tiempo{
-  font-family:"Cupra", Arial, sans-serif;
-  font-size:70px;
-  letter-spacing:4px;
-  line-height:1;
+font-size:70px;
+display:flex;
+justify-content:center;
+gap:25px;
 }
 
+/* LABELS */
+
 #labels{
-  margin-top:10px;
-  font-family:"Cupra", Arial, sans-serif;
-  font-size:18px;
-  letter-spacing:2px;
-  word-spacing:20px;
-  white-space:nowrap;
+margin-top:10px;
+font-size:18px;
+display:flex;
+justify-content:center;
+gap:55px;
 }
 
 /* LOGO INFERIOR */
+
 #logoBottom{
-  position:absolute;
-  bottom:30px;
-  width:100%;
-  text-align:center;
+position:absolute;
+bottom:30px;
+width:100%;
+text-align:center;
 }
 
 #logoBottom img{
-  width:140px;
-  height:auto;
-  display:inline-block;
+width:140px;
 }
 
 /* ESTADO FINAL */
+
 body.final #contenedor{
-  display:none;
+display:none;
 }
 
 #logoFinal{
-  display:none;
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
+display:none;
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
 }
 
 #logoFinal img{
-  width:180px;
-  height:auto;
-  display:block;
+width:180px;
 }
 
 body.final #logoFinal{
-  display:block;
+display:block;
 }
+
 </style>
 </head>
+
 
 <body>
 
 <div id="contenedor">
 
-  <div id="logoTop">
-    <img src="Logo_R.png" alt="Logo R">
-  </div>
+<div id="logoTop">
+<img src="Logo_R.png">
+</div>
 
-  <div id="bloqueDias">
-    <div id="diasNumero">0</div>
-    <div id="diasTexto">DAYS</div>
-  </div>
 
-  <div id="reloj">
-    <div id="tiempo">00:00:00</div>
-    <div id="labels">HH&nbsp;&nbsp;&nbsp;MM&nbsp;&nbsp;&nbsp;SS</div>
-  </div>
+<div id="bloqueDias">
 
-  <div id="logoBottom">
-    <img src="Logo_Cupra.png" alt="Logo Cupra">
-  </div>
+<div id="diasNumero">0</div>
+
+<div id="diasTexto">DAYS</div>
 
 </div>
+
+
+<div id="reloj">
+
+<div id="tiempo">
+
+<span id="hh">00</span>
+<span id="mm">00</span>
+<span id="ss">00</span>
+
+</div>
+
+
+<div id="labels">
+
+<span>HH</span>
+<span>MM</span>
+<span>SS</span>
+
+</div>
+
+</div>
+
+
+<div id="logoBottom">
+<img src="Logo_Cupra.png">
+</div>
+
+</div>
+
 
 <div id="logoFinal">
-  <img src="Logo_Cupra.png" alt="Logo final">
+<img src="Logo_Cupra.png">
 </div>
 
+
 <script>
+
+/* FECHA DEL EVENTO */
+
 const fechaObjetivo = new Date("2026-04-01T18:00:00").getTime();
 
+
 function actualizar(){
-  const ahora = new Date().getTime();
-  const diferencia = fechaObjetivo - ahora;
 
-  if(diferencia <= 0){
-    document.body.classList.add("final");
-    return;
-  }
+const ahora = new Date().getTime();
 
-  const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-  const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
-  const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+const diferencia = fechaObjetivo - ahora;
 
-  document.getElementById("diasNumero").textContent = dias;
 
-  document.getElementById("tiempo").textContent =
-    horas.toString().padStart(2,'0') + ":" +
-    minutos.toString().padStart(2,'0') + ":" +
-    segundos.toString().padStart(2,'0');
+/* EVENTO TERMINADO */
+
+if(diferencia <= 0){
+
+document.body.classList.add("final");
+return;
+
 }
 
-setInterval(actualizar, 1000);
+
+const dias = Math.floor(diferencia/(1000*60*60*24));
+
+const horas = Math.floor((diferencia%(1000*60*60*24))/(1000*60*60));
+
+const minutos = Math.floor((diferencia%(1000*60*60))/(1000*60));
+
+const segundos = Math.floor((diferencia%(1000*60))/1000);
+
+
+/* DIAS */
+
+document.getElementById("diasNumero").innerHTML = dias;
+
+
+/* RELOJ */
+
+document.getElementById("hh").innerHTML =
+horas.toString().padStart(2,'0');
+
+document.getElementById("mm").innerHTML =
+minutos.toString().padStart(2,'0');
+
+document.getElementById("ss").innerHTML =
+segundos.toString().padStart(2,'0');
+
+}
+
+setInterval(actualizar,1000);
+
 actualizar();
+
 </script>
 
 </body>
 </html>
-
 
 
 
