@@ -2,164 +2,183 @@
 <html lang="es">
 
 <head>
+
 <meta charset="UTF-8">
 <title>Countdown Cupra</title>
 
 <style>
 
 @font-face{
-  font-family:"Cupra";
-  src:url("Cupra-ExtraBold.woff") format("woff");
+font-family:"Cupra";
+src:url("Cupra-ExtraBold.woff") format("woff");
 }
 
 :root{
-  --rojo:#ff0000;
+--rojo:#FF0000;
 }
 
 html,body{
-  margin:0;
-  background:black;
-  color:var(--rojo);
-  font-family:"Cupra",Arial,sans-serif;
-  height:100%;
+margin:0;
+background:black;
+color:var(--rojo);
+font-family:"Cupra",Arial,sans-serif;
+height:100%;
 }
 
 /* SOLO PARA PROBAR EN ORDENADOR */
+
 body{
-  zoom:3;
+zoom:3;
 }
 
 /* CONTENEDOR */
 
 #contenedor{
-  position:relative;
-  width:256px;
-  height:512px;
-  margin:auto;
-  background:black;
+position:relative;
+width:256px;
+height:512px;
+margin:auto;
+background:black;
 }
 
-/* LOGO SUPERIOR */
+/* BLOQUE SUPERIOR */
 
-#logoTop{
-  position:absolute;
-  top:20px;
-  right:20px;
-  width:80px;
-}
+#bloqueSuperior{
+position:absolute;
+top:40px;
+left:30px;
+right:20px;
 
-#logoTop img{
-  width:100%;
+display:flex;
+align-items:flex-start;
+justify-content:space-between;
 }
 
 /* BLOQUE DIAS */
 
 #bloqueDias{
-  position:absolute;
-  top:40px;
-  left:30px;
+display:flex;
+flex-direction:column;
+line-height:0.9;
 }
 
 #diasNumero{
-  font-size:110px;
-  line-height:0.8;
+font-size:110px;
 }
 
 #diasTexto{
-  font-size:30px;
-  letter-spacing:4px;
-  margin-top:10px;
+font-size:30px;
+letter-spacing:4px;
+margin-top:4px;
+}
+
+/* LOGO R */
+
+#logoTop{
+display:flex;
+align-items:flex-start;
+}
+
+#logoTop img{
+max-height:140px;
+height:100%;
+object-fit:contain;
 }
 
 /* RELOJ */
 
 #reloj{
-  position:absolute;
-  top:250px;
-  width:256px;
+position:absolute;
+top:250px;
+width:256px;
 }
 
-/* GRID PARA NUMEROS */
+/* GRID NUMEROS */
 
 #tiempo{
-  display:grid;
-  grid-template-columns:78px 18px 78px 18px 78px;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  font-size:60px;
+display:grid;
+grid-template-columns:78px 18px 78px 18px 78px;
+justify-content:center;
+align-items:center;
+text-align:center;
+font-size:66px;
 }
 
-/* GRID PARA LABELS */
+/* GRID LABELS */
 
 #labels{
-  display:grid;
-  grid-template-columns:78px 18px 78px 18px 78px;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  margin-top:4px;
-  font-size:14px;
+display:grid;
+grid-template-columns:78px 18px 78px 18px 78px;
+justify-content:center;
+align-items:center;
+text-align:center;
+margin-top:4px;
+font-size:14px;
 }
 
 /* SEPARADORES */
 
 .sep{
-  font-size:48px;
+font-size:48px;
 }
 
 /* LOGO INFERIOR */
 
 #logoBottom{
-  position:absolute;
-  bottom:30px;
-  width:100%;
-  text-align:center;
+position:absolute;
+bottom:30px;
+width:100%;
+text-align:center;
 }
 
 #logoBottom img{
-  width:130px;
+width:130px;
 }
 
 /* ESTADO FINAL */
 
 body.final #contenedor{
-  display:none;
+display:none;
 }
 
 #logoFinal{
-  display:none;
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
+display:none;
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
 }
 
 #logoFinal img{
-  width:180px;
+width:180px;
 }
 
 body.final #logoFinal{
-  display:block;
+display:block;
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div id="contenedor">
 
+
+<div id="bloqueSuperior">
+
+<div id="bloqueDias">
+<div id="diasNumero">0</div>
+<div id="diasTexto">DAYS</div>
+</div>
+
 <div id="logoTop">
 <img src="Logo_R.png">
 </div>
 
-<div id="bloqueDias">
-
-<div id="diasNumero">0</div>
-<div id="diasTexto">DAYS</div>
-
 </div>
+
 
 <div id="reloj">
 
@@ -173,6 +192,7 @@ body.final #logoFinal{
 
 </div>
 
+
 <div id="labels">
 
 <div>HOURS</div>
@@ -185,9 +205,11 @@ body.final #logoFinal{
 
 </div>
 
+
 <div id="logoBottom">
 <img src="Logo_Cupra.png">
 </div>
+
 
 </div>
 
@@ -238,7 +260,6 @@ actualizar();
 
 </body>
 </html>
-
 
 
 
