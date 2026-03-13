@@ -18,7 +18,7 @@ html,body{
   margin:0;
   background:black;
   color:var(--rojo);
-  font-family:"Cupra",Arial,sans-serif;
+  font-family:"Cupra", Arial, sans-serif;
   height:100%;
 }
 
@@ -49,7 +49,7 @@ body{
   display:block;
 }
 
-/* BLOQUE DIAS */
+/* BLOQUE DÍAS */
 #bloqueDias{
   position:absolute;
   top:40px;
@@ -71,51 +71,43 @@ body{
 #reloj{
   position:absolute;
   top:250px;
-  width:100%;
   left:0;
+  width:256px;
 }
 
-#tiempoWrap{
-  position:relative;
-  width:100%;
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  padding:0 18px;
-  box-sizing:border-box;
-}
-
-.bloqueTiempo{
-  width:68px;
+/* MISMA GRID PARA NÚMEROS Y LABELS */
+#tiempo,
+#labels{
+  width:256px;
+  display:grid;
+  grid-template-columns:64px 16px 64px 16px 64px;
+  justify-content:center;
+  align-items:center;
   text-align:center;
 }
 
-.numero{
+#tiempo{
   font-size:70px;
   line-height:1;
 }
 
-.label{
+#labels{
   margin-top:4px;
-  font-size:16px;
+  font-size:14px;
   line-height:1;
+}
+
+.num,
+.lab,
+.sep{
+  display:flex;
+  align-items:center;
+  justify-content:center;
   white-space:nowrap;
 }
 
-/* DOS PUNTOS */
 .sep{
-  position:absolute;
-  top:8px;
-  font-size:55px;
-  line-height:1;
-}
-
-#sep1{
-  left:82px;
-}
-
-#sep2{
-  left:166px;
+  font-size:52px;
 }
 
 /* LOGO INFERIOR */
@@ -168,27 +160,23 @@ body.final #logoFinal{
   </div>
 
   <div id="reloj">
-    <div id="tiempoWrap">
 
-      <div class="bloqueTiempo">
-        <div class="numero" id="hh">00</div>
-        <div class="label">HOURS</div>
-      </div>
-
-      <div class="bloqueTiempo">
-        <div class="numero" id="mm">00</div>
-        <div class="label">MINUTES</div>
-      </div>
-
-      <div class="bloqueTiempo">
-        <div class="numero" id="ss">00</div>
-        <div class="label">SECONDS</div>
-      </div>
-
-      <div class="sep" id="sep1">:</div>
-      <div class="sep" id="sep2">:</div>
-
+    <div id="tiempo">
+      <div class="num" id="hh">00</div>
+      <div class="sep">:</div>
+      <div class="num" id="mm">00</div>
+      <div class="sep">:</div>
+      <div class="num" id="ss">00</div>
     </div>
+
+    <div id="labels">
+      <div class="lab">HOURS</div>
+      <div></div>
+      <div class="lab">MINUTES</div>
+      <div></div>
+      <div class="lab">SECONDS</div>
+    </div>
+
   </div>
 
   <div id="logoBottom">
@@ -230,7 +218,6 @@ actualizar();
 
 </body>
 </html>
-
 
 
 
