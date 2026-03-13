@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 <meta charset="UTF-8">
 <title>Countdown Cupra</title>
 
 <style>
+
 @font-face{
   font-family:"Cupra";
   src:url("Cupra-ExtraBold.woff") format("woff");
@@ -18,7 +20,7 @@ html,body{
   margin:0;
   background:black;
   color:var(--rojo);
-  font-family:"Cupra", Arial, sans-serif;
+  font-family:"Cupra",Arial,sans-serif;
   height:100%;
 }
 
@@ -28,6 +30,7 @@ body{
 }
 
 /* CONTENEDOR */
+
 #contenedor{
   position:relative;
   width:256px;
@@ -37,6 +40,7 @@ body{
 }
 
 /* LOGO SUPERIOR */
+
 #logoTop{
   position:absolute;
   top:20px;
@@ -46,10 +50,10 @@ body{
 
 #logoTop img{
   width:100%;
-  display:block;
 }
 
-/* BLOQUE DÍAS */
+/* BLOQUE DIAS */
+
 #bloqueDias{
   position:absolute;
   top:40px;
@@ -68,49 +72,44 @@ body{
 }
 
 /* RELOJ */
+
 #reloj{
   position:absolute;
   top:250px;
-  left:0;
   width:256px;
 }
 
-/* MISMA GRID PARA NÚMEROS Y LABELS */
-#tiempo,
-#labels{
-  width:256px;
+/* GRID PARA NUMEROS */
+
+#tiempo{
   display:grid;
-  grid-template-columns:64px 16px 64px 16px 64px;
+  grid-template-columns:78px 18px 78px 18px 78px;
   justify-content:center;
   align-items:center;
   text-align:center;
+  font-size:66px;
 }
 
-#tiempo{
-  font-size:70px;
-  line-height:1;
-}
+/* GRID PARA LABELS */
 
 #labels{
+  display:grid;
+  grid-template-columns:78px 18px 78px 18px 78px;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
   margin-top:4px;
   font-size:14px;
-  line-height:1;
 }
 
-.num,
-.lab,
-.sep{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  white-space:nowrap;
-}
+/* SEPARADORES */
 
 .sep{
-  font-size:52px;
+  font-size:48px;
 }
 
 /* LOGO INFERIOR */
+
 #logoBottom{
   position:absolute;
   bottom:30px;
@@ -120,10 +119,10 @@ body{
 
 #logoBottom img{
   width:130px;
-  display:inline-block;
 }
 
 /* ESTADO FINAL */
+
 body.final #contenedor{
   display:none;
 }
@@ -143,6 +142,7 @@ body.final #contenedor{
 body.final #logoFinal{
   display:block;
 }
+
 </style>
 </head>
 
@@ -150,75 +150,94 @@ body.final #logoFinal{
 
 <div id="contenedor">
 
-  <div id="logoTop">
-    <img src="Logo_R.png" alt="Logo R">
-  </div>
+<div id="logoTop">
+<img src="Logo_R.png">
+</div>
 
-  <div id="bloqueDias">
-    <div id="diasNumero">0</div>
-    <div id="diasTexto">DAYS</div>
-  </div>
+<div id="bloqueDias">
 
-  <div id="reloj">
-
-    <div id="tiempo">
-      <div class="num" id="hh">00</div>
-      <div class="sep">:</div>
-      <div class="num" id="mm">00</div>
-      <div class="sep">:</div>
-      <div class="num" id="ss">00</div>
-    </div>
-
-    <div id="labels">
-      <div class="lab">HOURS</div>
-      <div></div>
-      <div class="lab">MINUTES</div>
-      <div></div>
-      <div class="lab">SECONDS</div>
-    </div>
-
-  </div>
-
-  <div id="logoBottom">
-    <img src="Logo_Cupra.png" alt="Logo Cupra">
-  </div>
+<div id="diasNumero">0</div>
+<div id="diasTexto">DAYS</div>
 
 </div>
+
+<div id="reloj">
+
+<div id="tiempo">
+
+<div id="hh">00</div>
+<div class="sep">:</div>
+<div id="mm">00</div>
+<div class="sep">:</div>
+<div id="ss">00</div>
+
+</div>
+
+<div id="labels">
+
+<div>HOURS</div>
+<div></div>
+<div>MINUTES</div>
+<div></div>
+<div>SECONDS</div>
+
+</div>
+
+</div>
+
+<div id="logoBottom">
+<img src="Logo_Cupra.png">
+</div>
+
+</div>
+
 
 <div id="logoFinal">
-  <img src="Logo_Cupra.png" alt="Logo final">
+<img src="Logo_Cupra.png">
 </div>
 
+
 <script>
+
 const fechaObjetivo = new Date("2026-04-01T18:00:00").getTime();
 
 function actualizar(){
-  const ahora = new Date().getTime();
-  const diferencia = fechaObjetivo - ahora;
 
-  if(diferencia <= 0){
-    document.body.classList.add("final");
-    return;
-  }
+const ahora = new Date().getTime();
+const diferencia = fechaObjetivo - ahora;
 
-  const dias = Math.floor(diferencia/(1000*60*60*24));
-  const horas = Math.floor((diferencia%(1000*60*60*24))/(1000*60*60));
-  const minutos = Math.floor((diferencia%(1000*60*60))/(1000*60));
-  const segundos = Math.floor((diferencia%(1000*60))/1000);
+if(diferencia <= 0){
 
-  document.getElementById("diasNumero").textContent = dias;
-  document.getElementById("hh").textContent = horas.toString().padStart(2,'0');
-  document.getElementById("mm").textContent = minutos.toString().padStart(2,'0');
-  document.getElementById("ss").textContent = segundos.toString().padStart(2,'0');
+document.body.classList.add("final");
+return;
+
+}
+
+const dias = Math.floor(diferencia/(1000*60*60*24));
+const horas = Math.floor((diferencia%(1000*60*60*24))/(1000*60*60));
+const minutos = Math.floor((diferencia%(1000*60*60))/(1000*60));
+const segundos = Math.floor((diferencia%(1000*60))/1000);
+
+document.getElementById("diasNumero").textContent = dias;
+
+document.getElementById("hh").textContent =
+horas.toString().padStart(2,'0');
+
+document.getElementById("mm").textContent =
+minutos.toString().padStart(2,'0');
+
+document.getElementById("ss").textContent =
+segundos.toString().padStart(2,'0');
+
 }
 
 setInterval(actualizar,1000);
 actualizar();
+
 </script>
 
 </body>
 </html>
-
 
 
 
