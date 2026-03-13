@@ -26,11 +26,12 @@ height:100%;
 }
 
 /* SOLO PARA PROBAR EN ORDENADOR */
+
 body{
 zoom:3;
 }
 
-/* CONTENEDOR GENERAL */
+/* CONTENEDOR */
 
 #contenedor{
 position:relative;
@@ -85,9 +86,17 @@ width:100%;
 
 #tiempo{
 display:grid;
-grid-template-columns:repeat(3,1fr);
+grid-template-columns:1fr auto 1fr auto 1fr;
 justify-items:center;
+align-items:center;
 font-size:70px;
+}
+
+/* SEPARADORES */
+
+.sep{
+font-size:55px;
+padding:0 8px;
 }
 
 /* LABELS */
@@ -140,8 +149,8 @@ display:block;
 
 </head>
 
-<body>
 
+<body>
 
 <div id="contenedor">
 
@@ -152,8 +161,11 @@ display:block;
 
 
 <div id="bloqueDias">
+
 <div id="diasNumero">0</div>
+
 <div id="diasTexto">DAYS</div>
+
 </div>
 
 
@@ -162,7 +174,9 @@ display:block;
 <div id="tiempo">
 
 <div id="hh">00</div>
+<div class="sep">:</div>
 <div id="mm">00</div>
+<div class="sep">:</div>
 <div id="ss">00</div>
 
 </div>
