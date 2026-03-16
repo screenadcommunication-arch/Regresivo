@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=256, height=256, initial-scale=1">
 <title>Countdown Cupra</title>
 
 <style>
@@ -12,119 +13,115 @@
 
 :root{
   --rojo:#FF0000;
+  --compY:0.50; /* prueba 0.48 / 0.50 / 0.52 si quieres afinar */
 }
 
 html,body{
   margin:0;
   width:256px;
   height:256px;
+  overflow:hidden;
   background:black;
   color:var(--rojo);
-  font-family:"Cupra",Arial,sans-serif;
-  overflow:hidden;
+  font-family:"Cupra", Arial, sans-serif;
 }
 
-#viewport{
+#scene{
   position:relative;
   width:256px;
   height:256px;
   overflow:hidden;
   background:black;
-  margin:auto;
 }
 
-#contenedor{
-  position:absolute;
-  top:0;
-  left:0;
-  width:256px;
-  height:512px;
-  background:black;
-  transform:scale(0.5);
-  transform-origin:top left;
+/* Compensación para el pitch 3.9 x 7.81 */
+.compY{
+  transform:scaleY(var(--compY));
+  transform-origin:center center;
 }
 
 /* BLOQUE SUPERIOR */
 #bloqueSuperior{
   position:absolute;
-  top:40px;
-  left:30px;
-  right:20px;
+  top:18px;
+  left:18px;
+  right:18px;
   display:flex;
-  align-items:flex-start;
   justify-content:space-between;
+  align-items:flex-start;
 }
 
-/* BLOQUE DIAS */
 #bloqueDias{
   display:flex;
   flex-direction:column;
-  line-height:0.9;
+  line-height:0.86;
 }
 
 #diasNumero{
-  font-size:110px;
+  font-size:104px;
 }
 
 #diasTexto{
-  font-size:30px;
-  letter-spacing:4px;
+  font-size:28px;
+  letter-spacing:3px;
   margin-top:4px;
 }
 
-/* LOGO R */
 #logoTop img{
-  max-height:140px;
-  object-fit:contain;
+  max-height:128px;
+  width:auto;
+  height:auto;
+  display:block;
 }
 
 /* RELOJ */
 #reloj{
   position:absolute;
-  top:250px;
+  top:108px;
   width:256px;
 }
 
-/* GRID NUMEROS */
-#tiempo{
-  display:grid;
-  grid-template-columns:78px 18px 78px 18px 78px;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  font-size:66px;
-}
-
-/* GRID LABELS */
+#tiempo,
 #labels{
+  width:256px;
   display:grid;
-  grid-template-columns:78px 18px 78px 18px 78px;
+  grid-template-columns:70px 16px 70px 16px 70px;
   justify-content:center;
   align-items:center;
   text-align:center;
-  margin-top:4px;
-  font-size:14px;
 }
 
-/* SEPARADORES */
+#tiempo{
+  font-size:60px;
+  line-height:1;
+}
+
+#labels{
+  margin-top:2px;
+  font-size:13px;
+  line-height:1;
+}
+
 .sep{
-  font-size:48px;
+  font-size:44px;
 }
 
 /* LOGO INFERIOR */
 #logoBottom{
   position:absolute;
-  bottom:30px;
+  bottom:18px;
   width:100%;
   text-align:center;
 }
 
 #logoBottom img{
-  width:130px;
+  width:96px;
+  height:auto;
+  display:inline-block;
 }
 
 /* ESTADO FINAL */
-body.final #viewport{
+body.final #scene{
   display:none;
 }
 
@@ -133,11 +130,14 @@ body.final #viewport{
   position:absolute;
   top:50%;
   left:50%;
-  transform:translate(-50%,-50%);
+  transform:translate(-50%,-50%) scaleY(var(--compY));
+  transform-origin:center center;
 }
 
 #logoFinal img{
-  width:180px;
+  width:150px;
+  height:auto;
+  display:block;
 }
 
 body.final #logoFinal{
@@ -148,43 +148,41 @@ body.final #logoFinal{
 
 <body>
 
-<div id="viewport">
-  <div id="contenedor">
+<div id="scene">
 
-    <div id="bloqueSuperior">
-      <div id="bloqueDias">
-        <div id="diasNumero">0</div>
-        <div id="diasTexto">DAYS</div>
-      </div>
-
-      <div id="logoTop">
-        <img src="Logo_R.png" alt="Logo R">
-      </div>
+  <div id="bloqueSuperior" class="compY">
+    <div id="bloqueDias">
+      <div id="diasNumero">0</div>
+      <div id="diasTexto">DAYS</div>
     </div>
 
-    <div id="reloj">
-      <div id="tiempo">
-        <div id="hh">00</div>
-        <div class="sep">:</div>
-        <div id="mm">00</div>
-        <div class="sep">:</div>
-        <div id="ss">00</div>
-      </div>
-
-      <div id="labels">
-        <div>HOURS</div>
-        <div></div>
-        <div>MINUTES</div>
-        <div></div>
-        <div>SECONDS</div>
-      </div>
+    <div id="logoTop">
+      <img src="Logo_R.png" alt="Logo R">
     </div>
-
-    <div id="logoBottom">
-      <img src="Logo_Cupra.png" alt="Logo Cupra">
-    </div>
-
   </div>
+
+  <div id="reloj" class="compY">
+    <div id="tiempo">
+      <div id="hh">00</div>
+      <div class="sep">:</div>
+      <div id="mm">00</div>
+      <div class="sep">:</div>
+      <div id="ss">00</div>
+    </div>
+
+    <div id="labels">
+      <div>HOURS</div>
+      <div></div>
+      <div>MINUTES</div>
+      <div></div>
+      <div>SECONDS</div>
+    </div>
+  </div>
+
+  <div id="logoBottom" class="compY">
+    <img src="Logo_Cupra.png" alt="Logo Cupra">
+  </div>
+
 </div>
 
 <div id="logoFinal">
@@ -195,7 +193,7 @@ body.final #logoFinal{
 const fechaObjetivo = new Date("2026-04-01T18:00:00").getTime();
 
 function actualizar(){
-  const ahora = new Date().getTime();
+  const ahora = Date.now();
   const diferencia = fechaObjetivo - ahora;
 
   if(diferencia <= 0){
@@ -203,10 +201,10 @@ function actualizar(){
     return;
   }
 
-  const dias = Math.floor(diferencia/(1000*60*60*24));
-  const horas = Math.floor((diferencia%(1000*60*60*24))/(1000*60*60));
-  const minutos = Math.floor((diferencia%(1000*60*60))/(1000*60));
-  const segundos = Math.floor((diferencia%(1000*60))/1000);
+  const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+  const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+  const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
 
   document.getElementById("diasNumero").textContent = dias;
   document.getElementById("hh").textContent = horas.toString().padStart(2,'0');
@@ -220,8 +218,6 @@ actualizar();
 
 </body>
 </html>
-
-
 
 
 
