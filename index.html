@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=256, height=256, initial-scale=1">
+<meta name="viewport" content="width=256, height=512, initial-scale=1">
 <title>Countdown Cupra</title>
 
 <style>
@@ -13,15 +13,15 @@
 
 :root{
   --rojo:#FF0000;
-  --compY:0.50; /* prueba 0.48 / 0.50 / 0.52 si quieres afinar */
+  --compY:0.50;
 }
 
 html,body{
   margin:0;
   width:256px;
-  height:256px;
-  overflow:hidden;
+  height:512px;
   background:black;
+  overflow:hidden;
   color:var(--rojo);
   font-family:"Cupra", Arial, sans-serif;
 }
@@ -29,23 +29,18 @@ html,body{
 #scene{
   position:relative;
   width:256px;
-  height:256px;
-  overflow:hidden;
+  height:512px;
   background:black;
-}
-
-/* Compensación para el pitch 3.9 x 7.81 */
-.compY{
   transform:scaleY(var(--compY));
-  transform-origin:center center;
+  transform-origin:top center;
 }
 
 /* BLOQUE SUPERIOR */
 #bloqueSuperior{
   position:absolute;
-  top:18px;
-  left:18px;
-  right:18px;
+  top:36px;
+  left:24px;
+  right:20px;
   display:flex;
   justify-content:space-between;
   align-items:flex-start;
@@ -58,26 +53,27 @@ html,body{
 }
 
 #diasNumero{
-  font-size:104px;
+  font-size:118px;
 }
 
 #diasTexto{
-  font-size:28px;
-  letter-spacing:3px;
-  margin-top:4px;
+  font-size:34px;
+  letter-spacing:4px;
+  margin-top:6px;
 }
 
 #logoTop img{
-  max-height:128px;
+  max-height:150px;
   width:auto;
   height:auto;
   display:block;
+  object-fit:contain;
 }
 
 /* RELOJ */
 #reloj{
   position:absolute;
-  top:108px;
+  top:248px;
   width:256px;
 }
 
@@ -85,37 +81,37 @@ html,body{
 #labels{
   width:256px;
   display:grid;
-  grid-template-columns:70px 16px 70px 16px 70px;
+  grid-template-columns:78px 18px 78px 18px 78px;
   justify-content:center;
   align-items:center;
   text-align:center;
 }
 
 #tiempo{
-  font-size:60px;
+  font-size:70px;
   line-height:1;
 }
 
 #labels{
-  margin-top:2px;
-  font-size:13px;
+  margin-top:4px;
+  font-size:14px;
   line-height:1;
 }
 
 .sep{
-  font-size:44px;
+  font-size:50px;
 }
 
 /* LOGO INFERIOR */
 #logoBottom{
   position:absolute;
-  bottom:18px;
+  bottom:34px;
   width:100%;
   text-align:center;
 }
 
 #logoBottom img{
-  width:96px;
+  width:126px;
   height:auto;
   display:inline-block;
 }
@@ -135,7 +131,7 @@ body.final #scene{
 }
 
 #logoFinal img{
-  width:150px;
+  width:180px;
   height:auto;
   display:block;
 }
@@ -150,7 +146,7 @@ body.final #logoFinal{
 
 <div id="scene">
 
-  <div id="bloqueSuperior" class="compY">
+  <div id="bloqueSuperior">
     <div id="bloqueDias">
       <div id="diasNumero">0</div>
       <div id="diasTexto">DAYS</div>
@@ -161,7 +157,7 @@ body.final #logoFinal{
     </div>
   </div>
 
-  <div id="reloj" class="compY">
+  <div id="reloj">
     <div id="tiempo">
       <div id="hh">00</div>
       <div class="sep">:</div>
@@ -179,7 +175,7 @@ body.final #logoFinal{
     </div>
   </div>
 
-  <div id="logoBottom" class="compY">
+  <div id="logoBottom">
     <img src="Logo_Cupra.png" alt="Logo Cupra">
   </div>
 
@@ -218,8 +214,6 @@ actualizar();
 
 </body>
 </html>
-
-
 
 
 
