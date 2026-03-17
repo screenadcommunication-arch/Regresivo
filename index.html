@@ -35,42 +35,35 @@ html,body{
   transform-origin:top center;
 }
 
-/* BLOQUE SUPERIOR */
+/* BLOQUE SUPERIOR: SOLO DÍAS, CENTRADO Y MÁS GRANDE */
 #bloqueSuperior{
   position:absolute;
   top:20px;
-  left:8px;
-  right:12px;
+  width:100%;
   display:flex;
-  justify-content:space-between;
+  justify-content:center;
   align-items:flex-start;
 }
 
 #bloqueDias{
   display:flex;
   flex-direction:column;
+  align-items:center;
+  text-align:center;
   line-height:0.86;
 }
 
 #diasNumero{
-  font-size:102px;
+  font-size:128px;
 }
 
 #diasTexto{
-  font-size:28px;
-  letter-spacing:3px;
-  margin-top:2px;
+  font-size:32px;
+  letter-spacing:4px;
+  margin-top:4px;
 }
 
-#logoTop img{
-  max-height:100px;
-  width:auto;
-  height:auto;
-  display:block;
-  object-fit:contain;
-}
-
-/* RELOJ */
+/* RELOJ: SE MANTIENE COMO EN TU ÚLTIMA VERSIÓN */
 #reloj{
   position:absolute;
   top:200px;
@@ -102,7 +95,7 @@ html,body{
   font-size:44px;
 }
 
-/* LOGO INFERIOR */
+/* LOGO INFERIOR NUEVO */
 #logoBottom{
   position:absolute;
   bottom:34px;
@@ -151,10 +144,6 @@ body.final #logoFinal{
       <div id="diasNumero">0</div>
       <div id="diasTexto">DAYS</div>
     </div>
-
-    <div id="logoTop">
-      <img src="Logo_R.png" alt="Logo R">
-    </div>
   </div>
 
   <div id="reloj">
@@ -176,13 +165,13 @@ body.final #logoFinal{
   </div>
 
   <div id="logoBottom">
-    <img src="Logo_Cupra.png" alt="Logo Cupra">
+    <img src="Logo_Cupra_New.png" alt="Logo Cupra">
   </div>
 
 </div>
 
 <div id="logoFinal">
-  <img src="Logo_Cupra.png" alt="Logo final">
+  <img src="Logo_Cupra_New.png" alt="Logo final">
 </div>
 
 <script>
@@ -214,7 +203,5 @@ actualizar();
 
 </body>
 </html>
-
-
 
 
